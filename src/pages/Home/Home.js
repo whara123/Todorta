@@ -1,14 +1,32 @@
 import React from "react";
 import styled from "styled-components";
+import TodoHead from "../../components/TodoHead";
+import TodoList from "../../components/TodoList";
+import TodoCreate from "../../components/TodoCreate";
 
 export default function Home() {
   return (
-    <BodyWarp>
-      <h1>하이~!</h1>
-    </BodyWarp>
+    <div>
+      <TodoTemplate>
+        <TodoHead />
+        <TodoList />
+        <TodoCreate />
+      </TodoTemplate>
+    </div>
   );
 }
 
-const BodyWarp = styled.div`
-  font-size: 20px;
+const TodoTemplate = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  width: 512px;
+  max-height: 650px;
+  margin: 0 auto;
+  padding-bottom: 155px;
+  border-radius: 16px;
+
+  background-color: #fff;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
 `;
