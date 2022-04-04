@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import TodoHead from "../../components/TodoHead";
-import TodoList from "../../components/TodoList";
-import TodoCreate from "../../components/TodoCreate";
+import TodoHead from "../../components/Todo/TodoHead";
+import TodoList from "../../components/Todo/TodoList";
+import TodoCreate from "../../components/Todo/TodoCreate";
 
 export default function Home() {
   return (

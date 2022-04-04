@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { MdDone, MdDelete } from "react-icons/md";
 import PropTypes from "prop-types";
-import { useTodoDispatch } from "../TodoContext";
+import { useTodoDispatch } from "../../TodoContext";
 
 function TodoItem({ id, done, text }) {
   const dispatch = useTodoDispatch();
