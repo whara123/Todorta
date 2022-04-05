@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
+import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai";
 
 export default function TodoCalender() {
   const [getMoment, setMoment] = useState(moment());
@@ -10,6 +11,8 @@ export default function TodoCalender() {
 
   const firstWeek = today.clone().startOf("month").week();
   const lastWeek = today.clone().endOf("month").week() === 1 ? 53 : today.clone().endOf("month").week();
+
+  const DayofTheWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
   const calenderArr = () => {
     let result = [];
@@ -25,20 +28,20 @@ export default function TodoCalender() {
 
               if (moment().format("YYYYMMDD") === days.format("YYYYMMDD")) {
                 return (
-                  <CalenderTd key={uuidv4()} other="toDay">
-                    <span>{days.format("D")}</span>
+                  <CalenderTd key={uuidv4()} other="toDay" id={index}>
+                    <span className="today">{days.format("D")}</span>
                   </CalenderTd>
                 );
               }
               if (days.format("MM") !== today.format("MM")) {
                 return (
-                  <CalenderTd key={uuidv4()} other="otherMonth">
+                  <CalenderTd key={uuidv4()} other="otherMonth" id={index} style={{ color: "#eee" }}>
                     <span>{days.format("D")}</span>
                   </CalenderTd>
                 );
               }
               return (
-                <CalenderTd key={uuidv4()} other="thisMonth">
+                <CalenderTd key={uuidv4()} other="thisMonth" id={index}>
                   <span>{days.format("D")}</span>
                 </CalenderTd>
               );
@@ -52,25 +55,37 @@ export default function TodoCalender() {
   return (
     <CalenderContainer>
       <CalenderContorol>
-        <button
+        <MoveButton
           type="button"
           onClick={() => {
             setMoment(getMoment.clone().subtract(1, "month"));
           }}
         >
-          이전달
-        </button>
-        <span>{today.format("YYYY-MM")}</span>
-        <button
+          <AiFillCaretLeft />
+        </MoveButton>
+
+        <DateWrap>
+          <TextYear>{today.format("YYYY")}</TextYear>
+          <TextMonth>{today.format("M월")}</TextMonth>
+        </DateWrap>
+        <MoveButton
           type="button"
           onClick={() => {
             setMoment(getMoment.clone().add(1, "month"));
           }}
         >
-          다음달
-        </button>
+          <AiFillCaretRight />
+        </MoveButton>
       </CalenderContorol>
+
       <CalenderTable>
+        <DayOftheWeekBody>
+          {DayofTheWeek.map((day) => (
+            <CalenderTr>
+              <CalenderDayoftheWeek day={day}>{day}</CalenderDayoftheWeek>
+            </CalenderTr>
+          ))}
+        </DayOftheWeekBody>
         <CalenderBody>{calenderArr()}</CalenderBody>
       </CalenderTable>
     </CalenderContainer>
@@ -78,47 +93,96 @@ export default function TodoCalender() {
 }
 
 const CalenderContainer = styled.div`
-  height: 100vh;
-  width: 100vw;
-  font-size: 1.5vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  height: 100%;
+  width: 100%;
+  margin: 10px 0 10px 0;
+  background-color: #fff;
+  user-select: none;
 `;
 
 const CalenderContorol = styled.div`
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 50px;
+  margin: 0 100px;
+  margin-bottom: 30px;
+  border-radius: 20px;
+  background-color: #cee2f2;
 `;
 
 const CalenderTable = styled.table`
   display: flex;
-  width: 50vw;
-  height: 50vh;
+  width: 100%;
+  flex-direction: column;
 `;
 
 const CalenderBody = styled.tbody`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+`;
+const DayOftheWeekBody = styled.tbody`
+  display: flex;
+  justify-content: center;
 `;
 
 const CalenderTr = styled.tr`
   display: flex;
   flex-direction: row;
+  justify-content: center;
 `;
 
 const CalenderTd = styled.td`
   display: flex;
-  border: 1px solid gray;
-  width: 5vw;
-  height: 5vh;
-  // eslint-disable-next-line no-nested-ternary
-  background-color: ${(props) => (props.other === "toDay" ? "red" : props.other === "otherMonth" ? "#333" : "#fff")};
-  color: ${(props) => (props.other === "otherMonth" ? "#fff" : "#000")};
-  span {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  padding-top: 10px;
+  border-bottom: 1px solid #888;
+  color: ${(props) => (props.id === 0 ? "#DB4A4B" : props.id === 6 ? "#676EDB" : "#000")};
+  .today {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      top: -1px;
+      right: -8px;
+      width: 25px;
+      height: 25px;
+      border-radius: 25px;
+      background-color: rgba(103, 110, 219, 0.2);
+    }
   }
+`;
+
+const CalenderDayoftheWeek = styled.td`
+  display: flex;
+  justify-content: center;
+  width: 100px;
+  height: 40px;
+  border-bottom: 1px solid #888;
+  color: ${(props) => (props.day === "일" ? "#DB4A4B" : props.day === "토" ? "#676EDB" : "#000")};
+`;
+
+const MoveButton = styled.button`
+  background: none;
+  padding: 0 50px;
+  font-size: 2em;
+`;
+
+const DateWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const TextYear = styled.strong`
+  text-align: left;
+  font-size: 1em;
+`;
+
+const TextMonth = styled.strong`
+  text-align: left;
+  font-size: 2em;
 `;
