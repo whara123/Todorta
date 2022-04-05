@@ -12,7 +12,8 @@ ReactDOM.render(
       <TodoProvider>
         <GlobalStyle />
         <Routes>
-          <Route path="/" element={<TodoCalender />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/calender" element={<TodoCalender />} />
         </Routes>
       </TodoProvider>
     </BrowserRouter>
