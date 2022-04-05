@@ -86,15 +86,19 @@ const CalenderTd = styled.td`
   padding-top: 10px;
   border-bottom: 1px solid #888;
   color: ${(props) => (props.id === 0 ? "#DB4A4B" : props.id === 6 ? "#676EDB" : "#000")};
+  span {
+    width: 18px;
+    text-align: center;
+  }
   .today {
     position: relative;
     &::after {
       content: "";
       position: absolute;
-      top: -1px;
-      right: -8px;
-      width: 25px;
-      height: 25px;
+      top: -3px;
+      left: -6px;
+      width: 30px;
+      height: 30px;
       border-radius: 25px;
       background-color: rgba(103, 110, 219, 0.2);
     }
