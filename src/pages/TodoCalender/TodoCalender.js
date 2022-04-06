@@ -35,6 +35,8 @@ export default function TodoCalender() {
         today={today}
         moment={moment()}
         DayofTheWeek={DayofTheWeek}
+        handlePrevMonth={handlePrevMonth}
+        handleNextMonth={handleNextMonth}
       />
     </CalenderContainer>
   );

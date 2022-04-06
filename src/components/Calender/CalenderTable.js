@@ -4,7 +4,27 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 
-export default function CalenderTable({ firstWeek, lastWeek, today, moment, DayofTheWeek }) {
+export default function CalenderTable({
+  firstWeek,
+  lastWeek,
+  today,
+  moment,
+  DayofTheWeek,
+  handlePrevMonth,
+  handleNextMonth,
+}) {
+  const handleOpenTodoTemplate = (e) => {
+    if (e.target.classList.contains("otherMonth")) {
+      if (e.target.id >= 25) {
+        handlePrevMonth();
+      } else {
+        handleNextMonth();
+      }
+    } else {
+      console.log("투두열기");
+    }
+  };
+
   const calenderArr = () => {
     let result = [];
     let week = firstWeek;
@@ -19,21 +39,49 @@ export default function CalenderTable({ firstWeek, lastWeek, today, moment, Dayo
 
               if (moment.format("YYYYMMDD") === days.format("YYYYMMDD")) {
                 return (
-                  <CalenderTd key={uuidv4()} other="toDay" id={index}>
-                    <span className="today">{days.format("D")}</span>
+                  <CalenderTd
+                    key={uuidv4()}
+                    other="toDay"
+                    index={index}
+                    onClick={handleOpenTodoTemplate}
+                    id={days.format("D")}
+                    className="toDay"
+                  >
+                    <span id={days.format("D")} className="today">
+                      {days.format("D")}
+                    </span>
                   </CalenderTd>
                 );
               }
               if (days.format("MM") !== today.format("MM")) {
                 return (
-                  <CalenderTd key={uuidv4()} other="otherMonth" id={index} style={{ color: "#eee" }}>
-                    <span>{days.format("D")}</span>
+                  <CalenderTd
+                    key={uuidv4()}
+                    other="otherMonth"
+                    index={index}
+                    style={{ color: "#eee" }}
+                    onClick={handleOpenTodoTemplate}
+                    id={days.format("D")}
+                    className="otherMonth"
+                  >
+                    <span id={days.format("D")} className="otherMonth">
+                      {days.format("D")}
+                    </span>
                   </CalenderTd>
                 );
               }
               return (
-                <CalenderTd key={uuidv4()} other="thisMonth" id={index}>
-                  <span>{days.format("D")}</span>
+                <CalenderTd
+                  key={uuidv4()}
+                  other="thisMonth"
+                  index={index}
+                  onClick={handleOpenTodoTemplate}
+                  id={days.format("D")}
+                  className="thisMonth"
+                >
+                  <span id={days.format("D")} className="thisMonth">
+                    {days.format("D")}
+                  </span>
                 </CalenderTd>
               );
             })}
@@ -85,7 +133,7 @@ const CalenderTd = styled.td`
   height: 100px;
   padding-top: 10px;
   border-bottom: 1px solid #888;
-  color: ${(props) => (props.id === 0 ? "#DB4A4B" : props.id === 6 ? "#676EDB" : "#000")};
+  color: ${(props) => (props.index === 0 ? "#DB4A4B" : props.index === 6 ? "#676EDB" : "#000")};
   span {
     width: 18px;
     text-align: center;
@@ -102,6 +150,12 @@ const CalenderTd = styled.td`
       border-radius: 25px;
       background-color: rgba(103, 110, 219, 0.2);
     }
+  }
+  &:hover {
+    outline: 2px solid #87de92;
+  }
+  &:active {
+    outline: 1px solid #87de92;
   }
 `;
 
@@ -120,4 +174,6 @@ CalenderTable.propTypes = {
   today: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
   moment: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]).isRequired,
   DayofTheWeek: PropTypes.arrayOf(PropTypes.string).isRequired,
+  handlePrevMonth: PropTypes.func.isRequired,
+  handleNextMonth: PropTypes.func.isRequired,
 };
