@@ -1,22 +1,16 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useTodoState } from "../../TodoContext";
 
-export default function TodoHead() {
+export default function TodoHead({ days, dayOfWeek, DayofTheWeek }) {
   const todos = useTodoState();
   const undoneTasks = todos.filter((todo) => !todo.done);
 
-  const today = new Date();
-  const dateString = today.toLocaleDateString("ko-KR", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-  const dayName = today.toLocaleDateString("ko-KR", { weekday: "long" });
   return (
     <TodoHeadBlock>
-      <h1>{dateString}</h1>
-      <p className="day">{dayName}</p>
+      <h1>{`${days}일의 TodoList`}</h1>
+      <p className="day">{`${DayofTheWeek[dayOfWeek]}요일`}</p>
       <p className="tasks-left">
         {undoneTasks.length !== 0 ? `할 일 ${undoneTasks.length}개 남음` : "오늘 계획 완료!🤗"}
       </p>
@@ -44,3 +38,8 @@ const TodoHeadBlock = styled.div`
     color: #20c997;
   }
 `;
+TodoHead.propTypes = {
+  days: PropTypes.string.isRequired,
+  dayOfWeek: PropTypes.string.isRequired,
+  DayofTheWeek: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
