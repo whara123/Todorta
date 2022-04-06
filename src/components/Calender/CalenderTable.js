@@ -1,8 +1,9 @@
 /* eslint-disable no-nested-ternary */
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
+import TodoTemplate from "../Todo/TodoTemplate";
 
 export default function CalenderTable({
   firstWeek,
@@ -13,6 +14,10 @@ export default function CalenderTable({
   handlePrevMonth,
   handleNextMonth,
 }) {
+  const [todoOpen, setTodoOpen] = useState(false);
+  const [selectDay, setSelectDay] = useState(0);
+  const [dayWeek, setDayWeek] = useState(0);
+
   const handleOpenTodoTemplate = (e) => {
     if (e.target.classList.contains("otherMonth")) {
       if (e.target.id >= 25) {
@@ -21,8 +26,14 @@ export default function CalenderTable({
         handleNextMonth();
       }
     } else {
-      console.log("투두열기");
+      setDayWeek(e.target.classList[e.target.classList.length - 1]);
+      setSelectDay(e.target.id);
+      setTodoOpen(!todoOpen);
     }
+  };
+
+  const handleClick = () => {
+    setTodoOpen(!todoOpen);
   };
 
   const calenderArr = () => {
@@ -45,9 +56,9 @@ export default function CalenderTable({
                     index={index}
                     onClick={handleOpenTodoTemplate}
                     id={days.format("D")}
-                    className="toDay"
+                    className={`toDay ${index}`}
                   >
-                    <span id={days.format("D")} className="today">
+                    <span id={days.format("D")} className={`toDay ${index}`}>
                       {days.format("D")}
                     </span>
                   </CalenderTd>
@@ -62,9 +73,9 @@ export default function CalenderTable({
                     style={{ color: "#eee" }}
                     onClick={handleOpenTodoTemplate}
                     id={days.format("D")}
-                    className="otherMonth"
+                    className={`otherMonth ${index}`}
                   >
-                    <span id={days.format("D")} className="otherMonth">
+                    <span id={days.format("D")} className={`otherMonth ${index}`}>
                       {days.format("D")}
                     </span>
                   </CalenderTd>
@@ -77,9 +88,9 @@ export default function CalenderTable({
                   index={index}
                   onClick={handleOpenTodoTemplate}
                   id={days.format("D")}
-                  className="thisMonth"
+                  className={`thisMonth ${index}`}
                 >
-                  <span id={days.format("D")} className="thisMonth">
+                  <span id={days.format("D")} className={`thisMonth ${index}`}>
                     {days.format("D")}
                   </span>
                 </CalenderTd>
@@ -92,16 +103,21 @@ export default function CalenderTable({
   };
 
   return (
-    <CalenderDateTable>
-      <DayOftheWeekBody>
-        {DayofTheWeek.map((day) => (
-          <CalenderTr key={uuidv4()}>
-            <CalenderDayoftheWeek day={day}>{day}</CalenderDayoftheWeek>
-          </CalenderTr>
-        ))}
-      </DayOftheWeekBody>
-      <CalenderBody>{calenderArr()}</CalenderBody>
-    </CalenderDateTable>
+    <>
+      <CalenderDateTable>
+        <DayOftheWeekBody>
+          {DayofTheWeek.map((day) => (
+            <CalenderTr key={uuidv4()}>
+              <CalenderDayoftheWeek day={day}>{day}</CalenderDayoftheWeek>
+            </CalenderTr>
+          ))}
+        </DayOftheWeekBody>
+        <CalenderBody>{calenderArr()}</CalenderBody>
+      </CalenderDateTable>
+      {todoOpen && (
+        <TodoTemplate handleClick={handleClick} days={selectDay} dayOfWeek={dayWeek} DayofTheWeek={DayofTheWeek} />
+      )}
+    </>
   );
 }
 
@@ -138,7 +154,7 @@ const CalenderTd = styled.td`
     width: 18px;
     text-align: center;
   }
-  .today {
+  .toDay {
     position: relative;
     &::after {
       content: "";
@@ -152,10 +168,10 @@ const CalenderTd = styled.td`
     }
   }
   &:hover {
-    outline: 2px solid #87de92;
+    outline: 2px solid #cee2f2;
   }
   &:active {
-    outline: 1px solid #87de92;
+    outline: 1px solid #cee2f2;
   }
 `;
 
