@@ -33,7 +33,7 @@ const DateContorol = styled.div`
 
 const MoveButton = styled.button`
   background: none;
-  padding: 0 50px;
+  padding: 5px 50px 0;
   font-size: 2em;
 `;
 
