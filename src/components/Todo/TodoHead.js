@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useTodoState } from "../../TodoContext";
 
-export default function TodoHead({ days, dayOfWeek, DayofTheWeek }) {
+export default function TodoHead({ days, dayWeekIndex, DayofTheWeek }) {
   const todos = useTodoState();
   const undoneTasks = todos.filter((todo) => !todo.done);
 
   return (
     <TodoHeadBlock>
       <h1>{`${days}일의 TodoList`}</h1>
-      <p className="day">{`${DayofTheWeek[dayOfWeek]}요일`}</p>
+      <p className="day">{`${DayofTheWeek[dayWeekIndex]}요일`}</p>
       <p className="tasks-left">
         {undoneTasks.length !== 0 ? `할 일 ${undoneTasks.length}개 남음` : "오늘 계획 완료!🤗"}
       </p>
@@ -40,6 +40,6 @@ const TodoHeadBlock = styled.div`
 `;
 TodoHead.propTypes = {
   days: PropTypes.string.isRequired,
-  dayOfWeek: PropTypes.string.isRequired,
+  dayWeekIndex: PropTypes.string.isRequired,
   DayofTheWeek: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

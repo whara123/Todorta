@@ -5,11 +5,11 @@ import TodoHead from "./TodoHead";
 import TodoList from "./TodoList";
 import TodoCreate from "./TodoCreate";
 
-export default function TodoTemplate({ handleClick, days, dayOfWeek, DayofTheWeek }) {
+export default function TodoTemplate({ handleClick, days, dayWeekIndex, DayofTheWeek }) {
   return (
     <TodoWrap>
       <TodoTemplateModal>
-        <TodoHead days={days} dayOfWeek={dayOfWeek} DayofTheWeek={DayofTheWeek} />
+        <TodoHead days={days} dayWeekIndex={dayWeekIndex} DayofTheWeek={DayofTheWeek} />
         <TodoList />
         <TodoCreate />
       </TodoTemplateModal>
@@ -55,6 +55,6 @@ const Dimmed = styled.div`
 TodoTemplate.propTypes = {
   handleClick: PropTypes.func.isRequired,
   days: PropTypes.string.isRequired,
-  dayOfWeek: PropTypes.string.isRequired,
+  dayWeekIndex: PropTypes.string.isRequired,
   DayofTheWeek: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

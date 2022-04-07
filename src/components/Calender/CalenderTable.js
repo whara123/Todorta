@@ -16,7 +16,7 @@ export default function CalenderTable({
 }) {
   const [todoOpen, setTodoOpen] = useState(false);
   const [selectDay, setSelectDay] = useState(0);
-  const [dayWeek, setDayWeek] = useState(0);
+  const [dayWeekIndex, setDayWeekIndex] = useState(0);
 
   const handleOpenTodoTemplate = (e) => {
     if (e.target.classList.contains("otherMonth")) {
@@ -26,7 +26,7 @@ export default function CalenderTable({
         handleNextMonth();
       }
     } else {
-      setDayWeek(e.target.classList[e.target.classList.length - 1]);
+      setDayWeekIndex(e.target.classList[e.target.classList.length - 1]);
       setSelectDay(e.target.id);
       setTodoOpen(!todoOpen);
     }
@@ -115,7 +115,12 @@ export default function CalenderTable({
         <CalenderBody>{calenderArr()}</CalenderBody>
       </CalenderDateTable>
       {todoOpen && (
-        <TodoTemplate handleClick={handleClick} days={selectDay} dayOfWeek={dayWeek} DayofTheWeek={DayofTheWeek} />
+        <TodoTemplate
+          handleClick={handleClick}
+          days={selectDay}
+          dayWeekIndex={dayWeekIndex}
+          DayofTheWeek={DayofTheWeek}
+        />
       )}
     </>
   );
