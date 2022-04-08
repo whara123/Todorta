@@ -16,6 +16,8 @@ export default function CalenderTable({
 }) {
   const [todoOpen, setTodoOpen] = useState(false);
   const [selectDay, setSelectDay] = useState(0);
+  const [selectMonth, setSelectMonth] = useState(0);
+  const [selectYear, setSelectYear] = useState(0);
   const [dayWeekIndex, setDayWeekIndex] = useState(0);
 
   const handleOpenTodoTemplate = (e) => {
@@ -27,6 +29,8 @@ export default function CalenderTable({
       }
     } else {
       setDayWeekIndex(e.target.classList[e.target.classList.length - 1]);
+      setSelectYear(today.format("YYYY"));
+      setSelectMonth(today.format("MM"));
       setSelectDay(e.target.id);
       setTodoOpen(!todoOpen);
     }
@@ -117,6 +121,8 @@ export default function CalenderTable({
       {todoOpen && (
         <TodoTemplate
           handleClick={handleClick}
+          year={selectYear}
+          month={selectMonth}
           days={selectDay}
           dayWeekIndex={dayWeekIndex}
           DayofTheWeek={DayofTheWeek}
