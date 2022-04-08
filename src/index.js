@@ -1,12 +1,15 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import TodoCalender from "./pages/TodoCalender/TodoCalender";
 import GlobalStyle from "./styles/GlobalStyle";
 import { TodoProvider } from "./TodoContext";
 
-ReactDOM.render(
+const container = document.getElementById("root");
+const root = createRoot(container);
+
+root.render(
   <React.StrictMode>
     <BrowserRouter>
       <TodoProvider>
@@ -17,6 +20,5 @@ ReactDOM.render(
         </Routes>
       </TodoProvider>
     </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
