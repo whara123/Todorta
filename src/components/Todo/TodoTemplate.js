@@ -29,7 +29,7 @@ const TodoTemplateModal = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  bottom: 90%;
+  bottom: 65vh;
 
   width: 512px;
   max-height: 650px;
