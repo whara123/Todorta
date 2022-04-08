@@ -5,6 +5,9 @@ const initialTodos = [
     id: 1,
     text: "오늘의 TodoList 완료하기",
     done: false,
+    year: 0,
+    month: 0,
+    days: 0,
   },
 ];
 

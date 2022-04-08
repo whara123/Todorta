@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
 import { useTodoDispatch, useTodoNextId } from "../../TodoContext";
 
-function TodoCreate() {
+function TodoCreate({ days, year, month }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
@@ -20,6 +21,9 @@ function TodoCreate() {
         id: nextId.current,
         text: value,
         done: false,
+        year,
+        month,
+        days,
       },
     });
     setValue("");
@@ -116,3 +120,9 @@ const Input = styled.input`
 `;
 
 export default React.memo(TodoCreate);
+
+TodoCreate.propTypes = {
+  days: PropTypes.string.isRequired,
+  year: PropTypes.string.isRequired,
+  month: PropTypes.string.isRequired,
+};
