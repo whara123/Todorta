@@ -9,8 +9,8 @@ export default function TodoTemplate({ handleClick, year, month, days, dayWeekIn
   return (
     <TodoWrap>
       <TodoTemplateModal>
-        <TodoHead days={days} dayWeekIndex={dayWeekIndex} DayofTheWeek={DayofTheWeek} />
-        <TodoList />
+        <TodoHead days={days} month={month} year={year} dayWeekIndex={dayWeekIndex} DayofTheWeek={DayofTheWeek} />
+        <TodoList days={days} year={year} month={month} />
         <TodoCreate days={days} year={year} month={month} />
       </TodoTemplateModal>
       <Dimmed onClick={handleClick}>dimmed</Dimmed>
