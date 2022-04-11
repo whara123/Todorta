@@ -1,15 +1,6 @@
 import React, { useReducer, createContext, useContext, useRef } from "react";
 
-const initialTodos = [
-  {
-    id: 1,
-    text: "오늘의 TodoList 완료하기",
-    done: false,
-    year: 0,
-    month: 0,
-    days: 0,
-  },
-];
+const initialTodos = [];
 
 function todoReducer(state, action) {
   switch (action.type) {
