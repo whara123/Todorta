@@ -20,6 +20,7 @@ export default function TodoTemplate({ handleClick, year, month, days, dayWeekIn
 
 const TodoWrap = styled.div`
   position: fixed;
+  top: 0;
   width: 100%;
   height: 100%;
   z-index: 100;
@@ -28,8 +29,10 @@ const TodoWrap = styled.div`
 const TodoTemplateModal = styled.div`
   display: flex;
   flex-direction: column;
-  position: relative;
-  bottom: 65vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   width: 512px;
   max-height: 650px;
