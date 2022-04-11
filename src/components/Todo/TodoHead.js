@@ -3,9 +3,14 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useTodoState } from "../../TodoContext";
 
-export default function TodoHead({ days, dayWeekIndex, DayofTheWeek }) {
+export default function TodoHead({ days, month, year, dayWeekIndex, DayofTheWeek }) {
   const todos = useTodoState();
-  const undoneTasks = todos.filter((todo) => !todo.done);
+  // eslint-disable-next-line no-return-assign
+  const todoShow = todos.map((todo) =>
+    // eslint-disable-next-line no-param-reassign
+    `${year}-${month}-${days}` === `${todo.year}-${todo.month}-${todo.days}` ? (todo.show = true) : (todo.show = false)
+  );
+  const undoneTasks = todos.filter((todo) => !todo.done && todo.show);
 
   return (
     <TodoHeadBlock>
@@ -40,6 +45,8 @@ const TodoHeadBlock = styled.div`
 `;
 TodoHead.propTypes = {
   days: PropTypes.string.isRequired,
+  month: PropTypes.string.isRequired,
+  year: PropTypes.string.isRequired,
   dayWeekIndex: PropTypes.string.isRequired,
   DayofTheWeek: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
