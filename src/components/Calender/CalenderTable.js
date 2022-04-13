@@ -4,6 +4,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 import TodoTemplate from "../Todo/TodoTemplate";
+import { useTodoState } from "../../TodoContext";
 
 export default function CalenderTable({
   firstWeek,
@@ -19,6 +20,8 @@ export default function CalenderTable({
   const [selectMonth, setSelectMonth] = useState(0);
   const [selectYear, setSelectYear] = useState(0);
   const [dayWeekIndex, setDayWeekIndex] = useState(0);
+
+  const todos = useTodoState();
 
   const handleOpenTodoTemplate = (e) => {
     if (e.target.classList.contains("otherMonth")) {
@@ -38,6 +41,18 @@ export default function CalenderTable({
 
   const handleClick = () => {
     setTodoOpen(!todoOpen);
+  };
+
+  const hasTodo = (days) => {
+    let dayTodo = "";
+    dayTodo = todos.filter((todo) => `${days.format("D")}` === `${todo.days}`);
+    return dayTodo.length;
+  };
+
+  const test = (days) => {
+    let lengTodo = "";
+    lengTodo = todos.filter((todo) => `${days.format("D")}` === `${todo.days}` && !todo.done);
+    return lengTodo.length;
   };
 
   const calenderArr = () => {
@@ -65,6 +80,7 @@ export default function CalenderTable({
                     <span id={days.format("D")} className={`toDay ${index}`}>
                       {days.format("D")}
                     </span>
+                    <TodoIcon>{hasTodo(days) > 0 && <TodoLeft done={test(days)}>Todo</TodoLeft>}</TodoIcon>
                   </CalenderTd>
                 );
               }
@@ -97,6 +113,7 @@ export default function CalenderTable({
                   <span id={days.format("D")} className={`thisMonth ${index}`}>
                     {days.format("D")}
                   </span>
+                  <TodoIcon>{hasTodo(days) > 0 && <TodoLeft done={test(days)}>Todo</TodoLeft>}</TodoIcon>
                 </CalenderTd>
               );
             })}
@@ -155,7 +172,8 @@ const CalenderTr = styled.tr`
 
 const CalenderTd = styled.td`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   width: 100px;
   height: 100px;
   padding-top: 10px;
@@ -163,7 +181,6 @@ const CalenderTd = styled.td`
   color: ${(props) => (props.index === 0 ? "#DB4A4B" : props.index === 6 ? "#676EDB" : "#000")};
   span {
     width: 18px;
-    text-align: center;
   }
   .toDay {
     position: relative;
@@ -193,6 +210,18 @@ const CalenderDayoftheWeek = styled.td`
   height: 40px;
   border-bottom: 1px solid #888;
   color: ${(props) => (props.day === "일" ? "#DB4A4B" : props.day === "토" ? "#676EDB" : "#000")};
+`;
+
+const TodoIcon = styled.div`
+  margin-top: 15px;
+  pointer-events: none;
+`;
+
+const TodoLeft = styled.div`
+  background-color: ${(props) => (props.done !== 0 ? "#e08684" : "#676EDB")};
+  color: #fff;
+  padding: 0 5px;
+  border-radius: 10px;
 `;
 
 CalenderTable.propTypes = {
