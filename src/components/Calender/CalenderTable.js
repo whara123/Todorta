@@ -52,7 +52,7 @@ export default function CalenderTable({
     return dayTodo.length;
   };
 
-  const test = (days) => {
+  const remainTodo = (days) => {
     let lengTodo = "";
     lengTodo = todos.filter(
       (todo) =>
@@ -87,7 +87,11 @@ export default function CalenderTable({
                     <span id={days.format("D")} className={`toDay ${index}`}>
                       {days.format("D")}
                     </span>
-                    <TodoIcon>{hasTodo(days) > 0 && <TodoLeft done={test(days)}>Todo</TodoLeft>}</TodoIcon>
+                    <TodoIcon>
+                      {hasTodo(days) > 0 && (
+                        <TodoLeft done={remainTodo(days)}>{remainTodo(days) > 0 ? "Todo" : "Done"}</TodoLeft>
+                      )}
+                    </TodoIcon>
                   </CalenderTd>
                 );
               }
@@ -120,7 +124,11 @@ export default function CalenderTable({
                   <span id={days.format("D")} className={`thisMonth ${index}`}>
                     {days.format("D")}
                   </span>
-                  <TodoIcon>{hasTodo(days) > 0 && <TodoLeft done={test(days)}>Todo</TodoLeft>}</TodoIcon>
+                  <TodoIcon>
+                    {hasTodo(days) > 0 && (
+                      <TodoLeft done={remainTodo(days)}>{remainTodo(days) > 0 ? "Todo" : "Done"}</TodoLeft>
+                    )}
+                  </TodoIcon>
                 </CalenderTd>
               );
             })}
@@ -226,9 +234,10 @@ const TodoIcon = styled.div`
 
 const TodoLeft = styled.div`
   background-color: ${(props) => (props.done !== 0 ? "#e08684" : "#676EDB")};
-  color: #fff;
   padding: 0 5px;
   border-radius: 10px;
+  font-weight: bold;
+  color: #fff;
 `;
 
 CalenderTable.propTypes = {
