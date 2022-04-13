@@ -45,13 +45,20 @@ export default function CalenderTable({
 
   const hasTodo = (days) => {
     let dayTodo = "";
-    dayTodo = todos.filter((todo) => `${days.format("D")}` === `${todo.days}`);
+    dayTodo = todos.filter(
+      (todo) =>
+        `${days.format("YYYY")}-${days.format("MM")}-${days.format("D")}` === `${todo.year}-${todo.month}-${todo.days}`
+    );
     return dayTodo.length;
   };
 
   const test = (days) => {
     let lengTodo = "";
-    lengTodo = todos.filter((todo) => `${days.format("D")}` === `${todo.days}` && !todo.done);
+    lengTodo = todos.filter(
+      (todo) =>
+        `${days.format("YYYY")}-${days.format("MM")}-${days.format("D")}` ===
+          `${todo.year}-${todo.month}-${todo.days}` && !todo.done
+    );
     return lengTodo.length;
   };
 
