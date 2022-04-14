@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import React, { useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
