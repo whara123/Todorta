@@ -166,7 +166,7 @@ export default function CalenderTable({
 
 const CalenderDateTable = styled.table`
   display: flex;
-  width: 100%;
+  min-width: 800px;
   flex-direction: column;
 `;
 
@@ -187,6 +187,7 @@ const CalenderTr = styled.tr`
 
 const CalenderTd = styled.td`
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
   align-items: center;
   width: 100px;
