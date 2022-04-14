@@ -1,14 +1,20 @@
-import React, { useReducer, createContext, useContext, useRef } from "react";
-
-const initialTodos = [];
+import React, { useReducer, createContext, useContext, useRef, useEffect } from "react";
 
 function todoReducer(state, action) {
   switch (action.type) {
+    case "INIT":
+      return action.todo;
     case "CREATE":
+      localStorage.setItem("todoList", JSON.stringify(state.concat(action.todo)));
       return state.concat(action.todo);
     case "TOGGLE":
+      localStorage.setItem(
+        "todoList",
+        JSON.stringify(state.map((todo) => (todo.id === action.id ? { ...todo, done: !todo.done } : todo)))
+      );
       return state.map((todo) => (todo.id === action.id ? { ...todo, done: !todo.done } : todo));
     case "REMOVE":
+      localStorage.setItem("todoList", JSON.stringify(state.filter((todo) => todo.id !== action.id)));
       return state.filter((todo) => todo.id !== action.id);
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
@@ -21,8 +27,17 @@ const TodoNextIdContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export function TodoProvider({ children }) {
-  const [state, dispatch] = useReducer(todoReducer, initialTodos);
-  const nextId = useRef(5);
+  const [state, dispatch] = useReducer(todoReducer, []);
+  const nextId = useRef(0);
+
+  useEffect(() => {
+    const localData = localStorage.getItem("todoList");
+    if (localData) {
+      const localTodoData = JSON.parse(localData);
+      nextId.current = localTodoData.length > 0 ? localTodoData[0].id + 1 : 0;
+      dispatch({ type: "INIT", todo: localTodoData });
+    }
+  }, []);
 
   return (
     <TodoStateContext.Provider value={state}>
