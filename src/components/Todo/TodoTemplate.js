@@ -52,7 +52,6 @@ const Dimmed = styled.div`
   height: 100%;
   z-index: -1;
   font-size: 0;
-  background: rgba(0, 0, 0, 0.2);
 `;
 
 TodoTemplate.propTypes = {
