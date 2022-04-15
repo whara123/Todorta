@@ -5,12 +5,12 @@ import TodoHead from "./TodoHead";
 import TodoList from "./TodoList";
 import TodoCreate from "./TodoCreate";
 
-export default function TodoTemplate({ handleClick, year, month, days, dayWeekIndex, DayofTheWeek }) {
+export default function TodoTemplate({ handleClick, year, month, days, dayWeekIndex, DayofTheWeek, handlePoint }) {
   return (
     <TodoWrap>
       <TodoTemplateModal>
         <TodoHead days={days} month={month} year={year} dayWeekIndex={dayWeekIndex} DayofTheWeek={DayofTheWeek} />
-        <TodoList days={days} year={year} month={month} />
+        <TodoList days={days} year={year} month={month} handlePoint={handlePoint} />
         <TodoCreate days={days} year={year} month={month} />
       </TodoTemplateModal>
       <Dimmed onClick={handleClick}>dimmed</Dimmed>
@@ -61,4 +61,5 @@ TodoTemplate.propTypes = {
   month: PropTypes.string.isRequired,
   dayWeekIndex: PropTypes.string.isRequired,
   DayofTheWeek: PropTypes.arrayOf(PropTypes.string).isRequired,
+  handlePoint: PropTypes.func.isRequired,
 };

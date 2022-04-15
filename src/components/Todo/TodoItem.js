@@ -4,7 +4,7 @@ import { MdDone, MdDelete } from "react-icons/md";
 import PropTypes from "prop-types";
 import { useTodoDispatch } from "../../TodoContext";
 
-function TodoItem({ id, done, text }) {
+function TodoItem({ id, done, text, handlePoint, firstdone }) {
   const dispatch = useTodoDispatch();
   const onToggle = () => {
     dispatch({ type: "TOGGLE", id });
@@ -15,7 +15,13 @@ function TodoItem({ id, done, text }) {
   };
   return (
     <TodoItemBlock>
-      <CheckCircle done={done} onClick={onToggle}>
+      <CheckCircle
+        done={done}
+        onClick={() => {
+          onToggle();
+          handlePoint(firstdone);
+        }}
+      >
         {done && <MdDone />}
       </CheckCircle>
       <Text done={done}>{text}</Text>
@@ -75,6 +81,8 @@ TodoItem.propTypes = {
   id: PropTypes.number,
   done: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
+  handlePoint: PropTypes.func.isRequired,
+  firstdone: PropTypes.bool.isRequired,
 };
 
 TodoItem.defaultProps = {

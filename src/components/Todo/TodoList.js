@@ -4,7 +4,7 @@ import styled from "styled-components";
 import TodoItem from "./TodoItem";
 import { useTodoState } from "../../TodoContext";
 
-export default function TodoList({ days, year, month }) {
+export default function TodoList({ days, year, month, handlePoint }) {
   const todos = useTodoState();
 
   return (
@@ -12,7 +12,14 @@ export default function TodoList({ days, year, month }) {
       {todos.map(
         (todo) =>
           `${year}-${month}-${days}` === `${todo.year}-${todo.month}-${todo.days}` && (
-            <TodoItem key={todo.id} id={todo.id} text={todo.text} done={todo.done} />
+            <TodoItem
+              key={todo.id}
+              id={todo.id}
+              text={todo.text}
+              done={todo.done}
+              firstdone={todo.firstdone}
+              handlePoint={handlePoint}
+            />
           )
       )}
     </TodoListBlock>
@@ -39,4 +46,5 @@ TodoList.propTypes = {
   days: PropTypes.string.isRequired,
   year: PropTypes.string.isRequired,
   month: PropTypes.string.isRequired,
+  handlePoint: PropTypes.func.isRequired,
 };

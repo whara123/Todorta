@@ -7,6 +7,7 @@ import Point from "../../components/Point/Point";
 
 export default function TodoCalender() {
   const [getMoment, setMoment] = useState(moment());
+  const [todoPoint, setTodoPoint] = useState(0);
   const today = getMoment;
 
   const firstWeek = today.clone().startOf("month").week();
@@ -17,6 +18,12 @@ export default function TodoCalender() {
   };
   const handleNextMonth = () => {
     setMoment(getMoment.clone().add(1, "month"));
+  };
+
+  const handlePoint = (firstdone) => {
+    if (!firstdone) {
+      setTodoPoint(todoPoint + 1);
+    }
   };
 
   const DayofTheWeek = ["일", "월", "화", "수", "목", "금", "토"];
@@ -38,9 +45,10 @@ export default function TodoCalender() {
           DayofTheWeek={DayofTheWeek}
           handlePrevMonth={handlePrevMonth}
           handleNextMonth={handleNextMonth}
+          handlePoint={handlePoint}
         />
       </CalenderContainer>
-      <Point />
+      <Point todoPoint={todoPoint} />
     </>
   );
 }

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { BsCalendar2CheckFill } from "react-icons/bs";
 
-export default function Point() {
-  const [todoPoint, setTodoPoint] = useState(0);
+export default function Point({ todoPoint }) {
   return (
     <PointWrap>
       <BsCalendar2CheckFill />
@@ -19,3 +19,7 @@ const PointWrap = styled.div`
   font-weight: bold;
   line-height: 20px;
 `;
+
+Point.propTypes = {
+  todoPoint: PropTypes.number.isRequired,
+};

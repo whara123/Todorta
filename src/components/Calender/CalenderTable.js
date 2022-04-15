@@ -14,6 +14,7 @@ export default function CalenderTable({
   DayofTheWeek,
   handlePrevMonth,
   handleNextMonth,
+  handlePoint,
 }) {
   const [todoOpen, setTodoOpen] = useState(false);
   const [selectDay, setSelectDay] = useState(0);
@@ -158,6 +159,7 @@ export default function CalenderTable({
           days={selectDay}
           dayWeekIndex={dayWeekIndex}
           DayofTheWeek={DayofTheWeek}
+          handlePoint={handlePoint}
         />
       )}
     </>
@@ -249,4 +251,5 @@ CalenderTable.propTypes = {
   DayofTheWeek: PropTypes.arrayOf(PropTypes.string).isRequired,
   handlePrevMonth: PropTypes.func.isRequired,
   handleNextMonth: PropTypes.func.isRequired,
+  handlePoint: PropTypes.func.isRequired,
 };
