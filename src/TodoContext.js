@@ -13,6 +13,10 @@ function todoReducer(state, action) {
         JSON.stringify(state.map((todo) => (todo.id === action.id ? { ...todo, done: !todo.done } : todo)))
       );
       return state.map((todo) => (todo.id === action.id ? { ...todo, done: !todo.done } : todo));
+
+    case "FIRSTDONE":
+      return state.map((todo) => (todo.id === action.id ? { ...todo, firstdone: true } : todo));
+
     case "REMOVE":
       localStorage.setItem("todoList", JSON.stringify(state.filter((todo) => todo.id !== action.id)));
       return state.filter((todo) => todo.id !== action.id);

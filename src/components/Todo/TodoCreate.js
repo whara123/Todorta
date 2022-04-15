@@ -21,6 +21,7 @@ function TodoCreate({ days, year, month }) {
         id: nextId.current,
         text: value,
         done: false,
+        firstdone: false,
         show: false,
         year,
         month,
