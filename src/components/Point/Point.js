@@ -15,6 +15,10 @@ export default function Point({ todoPoint }) {
 const PointWrap = styled.div`
   display: flex;
   gap: 10px;
+
+  position: absolute;
+  right: 20%;
+  top: 10%;
   font-size: 1.2em;
   font-weight: bold;
   line-height: 20px;
