@@ -24,7 +24,8 @@ export default createGlobalStyle`
   html, body, #root {
     width: 100%;
     height: 100%;
-    background-color: #fff;
+    background-color: #eee;
+    overflow: hidden;
   }
   a {
     text-decoration : none;

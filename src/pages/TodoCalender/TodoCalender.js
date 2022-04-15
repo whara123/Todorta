@@ -42,9 +42,9 @@ export default function TodoCalender() {
 }
 
 const CalenderContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  margin: 10px 0 10px 0;
-  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   user-select: none;
 `;

@@ -24,9 +24,9 @@ export default function CalenderContorol({ year, month, handlePrevMonth, handleN
 const DateContorol = styled.div`
   display: flex;
   justify-content: space-between;
-  min-width: 720px;
+  width: 700px;
   padding: 10px 50px;
-  margin: 0 100px;
+  margin: 0 auto;
   margin-bottom: 30px;
   border-radius: 20px;
   background-color: #cee2f2;
