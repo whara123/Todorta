@@ -41,8 +41,8 @@ export function TodoProvider({ children }) {
   useEffect(() => {
     const localData = localStorage.getItem("todoList");
     if (localData) {
-      const localTodoData = JSON.parse(localData);
-      nextId.current = localTodoData.length > 0 ? localTodoData[0].id + 1 : 0;
+      const localTodoData = JSON.parse(localData).sort((a, b) => a.id - b.id);
+      nextId.current = localTodoData.length > 0 ? localTodoData[localTodoData.length - 1].id + 1 : 0;
       dispatch({ type: "INIT", todo: localTodoData });
     }
   }, []);
