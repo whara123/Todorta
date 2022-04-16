@@ -7,21 +7,31 @@ export default function Point({ todoPoint }) {
   return (
     <PointWrap>
       <BsCalendar2CheckFill />
-      {todoPoint}
+      <PointInput disabled value={todoPoint} />
     </PointWrap>
   );
 }
 
 const PointWrap = styled.div`
   display: flex;
+  align-items: center;
   gap: 10px;
 
-  position: absolute;
-  right: 20%;
-  top: 10%;
+  position: fixed;
+  right: 2vw;
+  top: 0;
   font-size: 1.2em;
   font-weight: bold;
-  line-height: 20px;
+`;
+
+const PointInput = styled.input`
+  display: inline;
+  width: 50px;
+  text-align: center;
+  font-size: 1em;
+  color: #000;
+  border: none;
+  background: none;
 `;
 
 Point.propTypes = {
