@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
+import { AiOutlineUp } from "react-icons/ai";
 import CalenderContorol from "../../components/Calender/CalenderControl";
 import CalenderTable from "../../components/Calender/CalenderTable";
 import Point from "../../components/Point/Point";
@@ -36,25 +37,35 @@ export default function TodoCalender() {
   const DayofTheWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
   return (
-    <CalenderContainer>
-      <CalenderContorol
-        year={today.format("YYYY")}
-        month={today.format("M월")}
-        handlePrevMonth={handlePrevMonth}
-        handleNextMonth={handleNextMonth}
-      />
-      <CalenderTable
-        firstWeek={firstWeek}
-        lastWeek={lastWeek}
-        today={today}
-        moment={moment()}
-        DayofTheWeek={DayofTheWeek}
-        handlePrevMonth={handlePrevMonth}
-        handleNextMonth={handleNextMonth}
-        handlePoint={handlePoint}
-      />
-      <Point todoPoint={todoPoint} />
-    </CalenderContainer>
+    <>
+      <CalenderContainer>
+        <CalenderContorol
+          year={today.format("YYYY")}
+          month={today.format("M월")}
+          handlePrevMonth={handlePrevMonth}
+          handleNextMonth={handleNextMonth}
+        />
+        <CalenderTable
+          firstWeek={firstWeek}
+          lastWeek={lastWeek}
+          today={today}
+          moment={moment()}
+          DayofTheWeek={DayofTheWeek}
+          handlePrevMonth={handlePrevMonth}
+          handleNextMonth={handleNextMonth}
+          handlePoint={handlePoint}
+        />
+        <Point todoPoint={todoPoint} />
+      </CalenderContainer>
+      <CalenderBackground>
+        <div>
+          <AiOutlineUp />
+        </div>
+        <div>컨텐츠1</div>
+        <div>컨텐츠2</div>
+        <div>컨텐츠3</div>
+      </CalenderBackground>
+    </>
   );
 }
 
@@ -65,4 +76,10 @@ const CalenderContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   user-select: none;
+`;
+
+const CalenderBackground = styled.div`
+  display: flex;
+  position: absolute;
+  bottom: 0;
 `;
