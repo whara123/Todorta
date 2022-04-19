@@ -38,4 +38,23 @@ export default createGlobalStyle`
   li{
     list-style: none;
   }
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: 0.5s;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: 0.5s;
+}
+
 `;
