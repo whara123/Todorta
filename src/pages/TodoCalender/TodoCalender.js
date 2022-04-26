@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
@@ -42,6 +42,11 @@ export default function TodoCalender() {
     navigation("/todoland");
   };
 
+  const MenuBtn = useRef();
+  const backGroundMenuOn = () => {
+    MenuBtn.current.style.bottom = "0px";
+  };
+
   const DayofTheWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
   return (
@@ -68,15 +73,16 @@ export default function TodoCalender() {
       <MoveLandPageButton type="button" onClick={handleMove}>
         <BsPinMapFill />
       </MoveLandPageButton>
+
       <CalenderBackground>
-        <div>
+        <BackGroundMenu type="button" onClick={backGroundMenuOn}>
           <AiOutlineUp />
-        </div>
-        <ul>
-          <li>컨텐츠1</li>
-          <li>컨텐츠2</li>
-          <li>컨텐츠3</li>
-        </ul>
+        </BackGroundMenu>
+        <BackGroundMenuList ref={MenuBtn}>
+          <BackGroundMenuItem>컨텐츠</BackGroundMenuItem>
+          <BackGroundMenuItem>컨텐츠</BackGroundMenuItem>
+          <BackGroundMenuItem>컨텐츠</BackGroundMenuItem>
+        </BackGroundMenuList>
       </CalenderBackground>
     </>
   );
@@ -93,8 +99,12 @@ const CalenderContainer = styled.div`
 
 const CalenderBackground = styled.footer`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   position: absolute;
   bottom: 0;
+  width: 100%;
 `;
 
 const MoveLandPageButton = styled.button`
@@ -105,4 +115,42 @@ const MoveLandPageButton = styled.button`
   height: 100px;
   font-size: 40px;
   border-radius: 100px;
+`;
+
+const BackGroundMenu = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 1;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  background-color: #999;
+  font-size: 1.5em;
+  color: #fff;
+  &:hover {
+    margin-bottom: 10px;
+    transition: 0.2s;
+  }
+`;
+
+const BackGroundMenuList = styled.ul`
+  display: flex;
+  justify-content: center;
+
+  position: absolute;
+  bottom: -120px;
+  width: 100%;
+  gap: 20px;
+  background-color: #999;
+  transition: 0.2s;
+`;
+
+const BackGroundMenuItem = styled.li`
+  width: 8em;
+  height: 5em;
+  border-radius: 5px;
+  background-color: #fff;
+  margin: 20px 0 20px;
 `;
