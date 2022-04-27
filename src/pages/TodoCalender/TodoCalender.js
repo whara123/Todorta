@@ -3,7 +3,7 @@ import styled from "styled-components";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineUp } from "react-icons/ai";
-import { BsPinMapFill } from "react-icons/bs";
+import { BsPinMapFill, BsCalendar2CheckFill } from "react-icons/bs";
 import CalenderContorol from "../../components/Calender/CalenderControl";
 import CalenderTable from "../../components/Calender/CalenderTable";
 import Point from "../../components/Point/Point";
@@ -11,6 +11,7 @@ import Point from "../../components/Point/Point";
 export default function TodoCalender() {
   const [getMoment, setMoment] = useState(moment());
   const [todoPoint, setTodoPoint] = useState(0);
+  const [menuOn, setMenuOn] = useState(false);
   useEffect(() => {
     const todoPointData = localStorage.getItem("todoPoint");
     if (todoPointData) {
@@ -43,8 +44,20 @@ export default function TodoCalender() {
   };
 
   const MenuBtn = useRef();
+  const Dimd = useRef();
   const backGroundMenuOn = () => {
-    MenuBtn.current.style.bottom = "0px";
+    if (!menuOn) {
+      Dimd.current.style.display = "block";
+      MenuBtn.current.style.bottom = "0px";
+    } else {
+      Dimd.current.style.display = "none";
+      MenuBtn.current.style.bottom = "-120px";
+    }
+  };
+
+  const MeunOnOff = () => {
+    setMenuOn(!menuOn);
+    backGroundMenuOn();
   };
 
   const DayofTheWeek = ["일", "월", "화", "수", "목", "금", "토"];
@@ -75,14 +88,23 @@ export default function TodoCalender() {
       </MoveLandPageButton>
 
       <CalenderBackground>
-        <BackGroundMenu type="button" onClick={backGroundMenuOn}>
+        <BackGroundMenu type="button" onClick={MeunOnOff}>
           <AiOutlineUp />
         </BackGroundMenu>
         <BackGroundMenuList ref={MenuBtn}>
-          <BackGroundMenuItem>컨텐츠</BackGroundMenuItem>
-          <BackGroundMenuItem>컨텐츠</BackGroundMenuItem>
-          <BackGroundMenuItem>컨텐츠</BackGroundMenuItem>
+          <BackGroundMenuItem>
+            <BsCalendar2CheckFill /> 1
+          </BackGroundMenuItem>
+          <BackGroundMenuItem>
+            <BsCalendar2CheckFill /> 1
+          </BackGroundMenuItem>
+          <BackGroundMenuItem>
+            <BsCalendar2CheckFill /> 1
+          </BackGroundMenuItem>
         </BackGroundMenuList>
+        <DimdScreen ref={Dimd} onClick={MeunOnOff}>
+          딤드
+        </DimdScreen>
       </CalenderBackground>
     </>
   );
@@ -121,14 +143,14 @@ const BackGroundMenu = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  z-index: 1;
   width: 50px;
   height: 50px;
+  margin: -15px;
   border-radius: 50px;
   background-color: #999;
   font-size: 1.5em;
   color: #fff;
+
   &:hover {
     margin-bottom: 10px;
     transition: 0.2s;
@@ -145,12 +167,28 @@ const BackGroundMenuList = styled.ul`
   gap: 20px;
   background-color: #999;
   transition: 0.2s;
+  z-index: 100;
 `;
 
 const BackGroundMenuItem = styled.li`
-  width: 8em;
-  height: 5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 128px;
+  height: 80px;
   border-radius: 5px;
   background-color: #fff;
   margin: 20px 0 20px;
+`;
+
+const DimdScreen = styled.div`
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.2);
 `;
