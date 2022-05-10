@@ -12,6 +12,7 @@ export default function TodoCalender() {
   const [getMoment, setMoment] = useState(moment());
   const [todoPoint, setTodoPoint] = useState(0);
   const [menuOn, setMenuOn] = useState(false);
+  const [isReady, setIsReady] = useState(false);
   useEffect(() => {
     const todoPointData = localStorage.getItem("todoPoint");
     if (todoPointData) {
@@ -83,9 +84,11 @@ export default function TodoCalender() {
         />
         <Point todoPoint={todoPoint} />
       </CalenderContainer>
-      <MoveLandPageButton type="button" onClick={handleMove}>
-        <BsPinMapFill />
-      </MoveLandPageButton>
+      {isReady && (
+        <MoveLandPageButton type="button" onClick={handleMove}>
+          <BsPinMapFill />
+        </MoveLandPageButton>
+      )}
 
       <CalenderBackground>
         <BackGroundMenu type="button" onClick={MeunOnOff}>
