@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -50,6 +51,14 @@ export default function LoginModal({ handleLogin }) {
           <button type="button">아이디/비밀번호 찾기</button>
         </SignUpFindIdWrap>
       </LoginModalWrap>
+      {/* <SignUpWrap>
+        <p>이메일로 회원가입</p>
+        <label htmlFor="email">이메일</label>
+        <SignUpAccountInput type="text" id="email" />
+        <label htmlFor="passward">비밀번호</label>
+        <SignUpAccountInput type="text" id="passward" />
+      </SignUpWrap>
+      <button type="button">시작하기</button> */}
       <DimdScreen ref={Dimd} onClick={handleLogin}>
         딤드
       </DimdScreen>
@@ -132,6 +141,21 @@ const DimdScreen = styled.div`
   z-index: 50;
   font-size: 0;
   background: rgba(0, 0, 0, 0.2);
+`;
+
+const SignUpWrap = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: absolute;
+  width: 20em;
+  padding: 10px 0 20px 10px;
+  z-index: 200;
+  background-color: #eee;
+`;
+
+const SignUpAccountInput = styled.input`
+  width: 80%;
 `;
 
 LoginModal.propTypes = {
