@@ -1,0 +1,139 @@
+import React, { useState, useRef } from "react";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+
+export default function LoginModal({ handleLogin }) {
+  const navigation = useNavigate();
+  const [idInpnut, setIdInpnut] = useState("");
+  const [passWardInput, setPassWardInput] = useState("");
+  const [IsRightAccount, setIsRightAccount] = useState(false);
+  const [IsWrong, setIsWrong] = useState(false);
+
+  const Dimd = useRef();
+
+  const onChangeId = (event) => {
+    setIdInpnut(event.target.value);
+  };
+  const onChangePassWard = (event) => {
+    setPassWardInput(event.target.value);
+  };
+
+  const checkLogin = () => {
+    console.log(idInpnut, passWardInput);
+    if (IsRightAccount) {
+      console.log("로그인 성공");
+      setIsWrong(false);
+      navigation("/calender");
+    } else {
+      console.log("로그인 실패");
+      setIdInpnut("");
+      setPassWardInput("");
+      setIsWrong(true);
+    }
+  };
+
+  return (
+    <>
+      <LoginModalWrap>
+        <LoginText>로그인 또는 회원가입</LoginText>
+        <LoginInputWrap>
+          <IdPassWardInput type="text" placeholder="아이디" onChange={onChangeId} value={idInpnut} />
+          <IdPassWardInput type="password" placeholder="비밀번호" onChange={onChangePassWard} value={passWardInput} />
+          {IsWrong && <WrongText>아이디 혹은 비밀번호가 틀렸습니다.</WrongText>}
+        </LoginInputWrap>
+        <LoginButton type="button" onClick={checkLogin}>
+          로그인
+        </LoginButton>
+        <SignUpFindIdWrap>
+          <button type="button">회원가입</button>
+          <button type="button">아이디/비밀번호 찾기</button>
+        </SignUpFindIdWrap>
+      </LoginModalWrap>
+      <DimdScreen ref={Dimd} onClick={handleLogin}>
+        딤드
+      </DimdScreen>
+    </>
+  );
+}
+
+const LoginModalWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 100;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 10%);
+  width: 20em;
+  border-radius: 5px;
+  background-color: #fff;
+  padding-bottom: 30px;
+`;
+
+const LoginText = styled.p`
+  width: 100%;
+  text-align: center;
+  padding: 10px 0 10px 0;
+  border-bottom: 1px solid #767676;
+`;
+
+const LoginInputWrap = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0 30px 0;
+`;
+
+const IdPassWardInput = styled.input`
+  width: 80%;
+  height: 30px;
+  &::placeholder {
+    padding-left: 10px;
+  }
+`;
+
+const WrongText = styled.p`
+  position: absolute;
+  top: 54%;
+  color: red;
+`;
+
+const LoginButton = styled.button`
+  width: 80%;
+  height: 30px;
+  margin-bottom: 10px;
+  color: #fff;
+  border-radius: 5px;
+  background-color: #2f80ed;
+`;
+
+const SignUpFindIdWrap = styled.div`
+  display: flex;
+  gap: 10px;
+  button {
+    background: none;
+    color: #767676;
+    font-size: 0.8em;
+  }
+`;
+
+const DimdScreen = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  font-size: 0;
+  background: rgba(0, 0, 0, 0.2);
+`;
+
+LoginModal.propTypes = {
+  handleLogin: PropTypes.func.isRequired,
+};
