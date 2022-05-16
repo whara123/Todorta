@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import SignUpModal from "./SignUpModal";
 
 export default function LoginModal({ handleLogin }) {
   const navigation = useNavigate();
@@ -10,6 +11,7 @@ export default function LoginModal({ handleLogin }) {
   const [passWardInput, setPassWardInput] = useState("");
   const [IsRightAccount, setIsRightAccount] = useState(false);
   const [IsWrong, setIsWrong] = useState(false);
+  const [IsSignUp, setIsSignUp] = useState(false);
 
   const Dimd = useRef();
 
@@ -18,6 +20,9 @@ export default function LoginModal({ handleLogin }) {
   };
   const onChangePassWard = (event) => {
     setPassWardInput(event.target.value);
+  };
+  const handleSignModal = () => {
+    setIsSignUp(!IsSignUp);
   };
 
   const checkLogin = () => {
@@ -47,18 +52,13 @@ export default function LoginModal({ handleLogin }) {
           로그인
         </LoginButton>
         <SignUpFindIdWrap>
-          <button type="button">회원가입</button>
+          <button type="button" onClick={handleSignModal}>
+            회원가입
+          </button>
           <button type="button">아이디/비밀번호 찾기</button>
         </SignUpFindIdWrap>
       </LoginModalWrap>
-      {/* <SignUpWrap>
-        <p>이메일로 회원가입</p>
-        <label htmlFor="email">이메일</label>
-        <SignUpAccountInput type="text" id="email" />
-        <label htmlFor="passward">비밀번호</label>
-        <SignUpAccountInput type="text" id="passward" />
-      </SignUpWrap>
-      <button type="button">시작하기</button> */}
+      {IsSignUp && <SignUpModal />}
       <DimdScreen ref={Dimd} onClick={handleLogin}>
         딤드
       </DimdScreen>
@@ -141,21 +141,6 @@ const DimdScreen = styled.div`
   z-index: 50;
   font-size: 0;
   background: rgba(0, 0, 0, 0.2);
-`;
-
-const SignUpWrap = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  position: absolute;
-  width: 20em;
-  padding: 10px 0 20px 10px;
-  z-index: 200;
-  background-color: #eee;
-`;
-
-const SignUpAccountInput = styled.input`
-  width: 80%;
 `;
 
 LoginModal.propTypes = {
