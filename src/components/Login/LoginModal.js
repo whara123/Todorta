@@ -23,6 +23,7 @@ export default function LoginModal({ handleLogin }) {
   };
   const handleSignModal = () => {
     setIsSignUp(!IsSignUp);
+    setIsWrong(false);
   };
 
   const checkLogin = () => {
@@ -58,7 +59,7 @@ export default function LoginModal({ handleLogin }) {
           <button type="button">아이디/비밀번호 찾기</button>
         </SignUpFindIdWrap>
       </LoginModalWrap>
-      {IsSignUp && <SignUpModal />}
+      {IsSignUp && <SignUpModal handleSignModal={handleSignModal} />}
       <DimdScreen ref={Dimd} onClick={handleLogin}>
         딤드
       </DimdScreen>
@@ -75,8 +76,8 @@ const LoginModalWrap = styled.div`
   z-index: 100;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, 10%);
-  width: 20em;
+  transform: translate(-50%);
+  width: 30em;
   border-radius: 5px;
   background-color: #fff;
   padding-bottom: 30px;
@@ -96,7 +97,7 @@ const LoginInputWrap = styled.form`
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin: 20px 0 30px 0;
+  margin: 30px 0 30px 0;
 `;
 
 const IdPassWardInput = styled.input`
@@ -109,7 +110,7 @@ const IdPassWardInput = styled.input`
 
 const WrongText = styled.p`
   position: absolute;
-  top: 54%;
+  top: 56%;
   color: red;
 `;
 
