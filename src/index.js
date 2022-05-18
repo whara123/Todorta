@@ -17,7 +17,7 @@ function App() {
     <TodoProvider>
       <GlobalStyle />
       <TransitionGroup>
-        <CSSTransition key={location.key} classNames="fade" timeout={500} mountOnEnter unmountOnExit>
+        <CSSTransition key={location.key} classNames="fade" timeout={300} mountOnEnter unmountOnExit>
           <Routes location={location}>
             <Route path="/" element={<Home />} />
             <Route path="/calender" element={<TodoCalender />} />

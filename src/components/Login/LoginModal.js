@@ -104,7 +104,7 @@ const IdPassWardInput = styled.input`
   width: 80%;
   height: 30px;
   &::placeholder {
-    padding-left: 10px;
+    padding-left: 5px;
   }
 `;
 

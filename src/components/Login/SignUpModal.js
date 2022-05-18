@@ -8,6 +8,7 @@ export default function SignUpModal({ handleSignModal }) {
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassward, setSignUpPassward] = useState("");
   const [checkSignUpPassward, setCheckSignUpPassward] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const reg = /^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i;
 
@@ -27,16 +28,18 @@ export default function SignUpModal({ handleSignModal }) {
     if (signUpPassward.length >= 6) {
       if (signUpEmail.match(reg) !== null) {
         console.log("이메일 통과");
+        setErrorMessage("");
         if (signUpPassward === checkSignUpPassward) {
           console.log("비번 동일 가입가자~!");
+          setErrorMessage("");
         } else {
-          console.log("비번 안돼");
+          setErrorMessage("비밀번호가 동일하지 않습니다.");
         }
       } else {
-        console.log("이메일 안돼");
+        setErrorMessage("이메일 형식이 아닙니다.");
       }
     } else {
-      console.log("비번 6자이상쳐");
+      setErrorMessage("비밀번호를 6자 이상 입력하세요");
     }
 
     console.log(signUpEmail, signUpPassward, checkSignUpPassward);
@@ -59,6 +62,7 @@ export default function SignUpModal({ handleSignModal }) {
             value={checkSignUpPassward}
           />
         </InputWarp>
+        {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
         <SignUpButton type="button" onClick={handleSignUp}>
           시작하기
         </SignUpButton>
@@ -147,6 +151,12 @@ const DimdScreen = styled.div`
   z-index: 80;
   font-size: 0;
   background: rgba(0, 0, 0, 0.2);
+`;
+
+const ErrorText = styled.p`
+  position: absolute;
+  bottom: 163px;
+  color: red;
 `;
 
 SignUpModal.propTypes = {
