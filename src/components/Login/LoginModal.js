@@ -14,6 +14,8 @@ export default function LoginModal({ handleLogin }) {
   const [IsSignUp, setIsSignUp] = useState(false);
 
   const Dimd = useRef();
+  const inputFocus = useRef();
+  const passFocus = useRef();
 
   const onChangeId = (event) => {
     setIdInpnut(event.target.value);
@@ -27,16 +29,23 @@ export default function LoginModal({ handleLogin }) {
   };
 
   const checkLogin = () => {
-    console.log(idInpnut, passWardInput);
-    if (IsRightAccount) {
-      console.log("로그인 성공");
-      setIsWrong(false);
-      navigation("/calender");
+    if (idInpnut) {
+      if (passWardInput) {
+        if (IsRightAccount) {
+          console.log("로그인 성공");
+          setIsWrong(false);
+          navigation("/calender");
+        } else {
+          console.log("로그인 실패");
+          setIdInpnut("");
+          setPassWardInput("");
+          setIsWrong(true);
+        }
+      } else {
+        passFocus.current.focus();
+      }
     } else {
-      console.log("로그인 실패");
-      setIdInpnut("");
-      setPassWardInput("");
-      setIsWrong(true);
+      inputFocus.current.focus();
     }
   };
 
@@ -45,8 +54,14 @@ export default function LoginModal({ handleLogin }) {
       <LoginModalWrap>
         <LoginText>로그인 또는 회원가입</LoginText>
         <LoginInputWrap>
-          <IdPassWardInput type="text" placeholder="아이디" onChange={onChangeId} value={idInpnut} />
-          <IdPassWardInput type="password" placeholder="비밀번호" onChange={onChangePassWard} value={passWardInput} />
+          <IdPassWardInput type="text" placeholder="아이디" ref={inputFocus} onChange={onChangeId} value={idInpnut} />
+          <IdPassWardInput
+            type="password"
+            placeholder="비밀번호"
+            ref={passFocus}
+            onChange={onChangePassWard}
+            value={passWardInput}
+          />
           {IsWrong && <WrongText>아이디 혹은 비밀번호가 틀렸습니다.</WrongText>}
         </LoginInputWrap>
         <LoginButton type="button" onClick={checkLogin}>
