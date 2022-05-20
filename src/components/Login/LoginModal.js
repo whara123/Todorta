@@ -3,6 +3,7 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { loginEmail, signupEmail } from "../../firebase";
 import SignUpModal from "./SignUpModal";
 
 export default function LoginModal({ handleLogin }) {
