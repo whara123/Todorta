@@ -16,8 +16,9 @@ export default function SignUpModal({ handleSignModal, createUserWithEmailAndPas
     try {
       const user = await createUserWithEmailAndPassword(auth, signUpEmail, signUpPassward);
       console.log(user);
+      handleSignModal();
     } catch (error) {
-      console.log(error);
+      setErrorMessage("중복된 이메일입니다.");
     }
   };
 

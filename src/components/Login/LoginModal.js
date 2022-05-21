@@ -8,7 +8,6 @@ import SignUpModal from "./SignUpModal";
 export default function LoginModal({
   handleLogin,
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
   auth,
@@ -16,18 +15,12 @@ export default function LoginModal({
   const navigation = useNavigate();
   const [idInput, setIdInput] = useState("");
   const [passWardInput, setPassWardInput] = useState("");
-  const [IsRightAccount, setIsRightAccount] = useState(false);
   const [IsWrong, setIsWrong] = useState(false);
   const [IsSignUp, setIsSignUp] = useState(false);
-  const [users, setUser] = useState({});
 
   const Dimd = useRef();
   const inputFocus = useRef();
   const passFocus = useRef();
-
-  onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
 
   async function login() {
     try {
@@ -183,7 +176,6 @@ const DimdScreen = styled.div`
 LoginModal.propTypes = {
   handleLogin: PropTypes.func.isRequired,
   createUserWithEmailAndPassword: PropTypes.func.isRequired,
-  onAuthStateChanged: PropTypes.func.isRequired,
   signInWithEmailAndPassword: PropTypes.func.isRequired,
   signOut: PropTypes.func.isRequired,
   auth: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]).isRequired,

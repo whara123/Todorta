@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../firebase-config";
 import LoginModal from "../../components/Login/LoginModal";
 
@@ -25,7 +25,6 @@ export default function Home() {
           <LoginModal
             handleLogin={handleLogin}
             createUserWithEmailAndPassword={createUserWithEmailAndPassword}
-            onAuthStateChanged={onAuthStateChanged}
             signInWithEmailAndPassword={signInWithEmailAndPassword}
             signOut={signOut}
             auth={auth}
