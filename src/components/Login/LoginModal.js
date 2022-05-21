@@ -29,18 +29,17 @@ export default function LoginModal({
     setUser(currentUser);
   });
 
-  const login = async () => {
+  async function login() {
     try {
       const user = await signInWithEmailAndPassword(auth, idInpnut, passWardInput);
       console.log(user);
       navigation("/calender");
     } catch (error) {
-      console.log(error);
-      // setIsWrong(true);
-      // setIdInpnut("");
-      // setPassWardInput("");
+      setIsWrong(true);
+      setIdInpnut("");
+      setPassWardInput("");
     }
-  };
+  }
 
   const onChangeId = (event) => {
     setIdInpnut(event.target.value);
