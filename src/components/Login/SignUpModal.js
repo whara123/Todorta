@@ -4,13 +4,22 @@ import styled, { keyframes } from "styled-components";
 import PropTypes from "prop-types";
 import { AiOutlineClose } from "react-icons/ai";
 
-export default function SignUpModal({ handleSignModal }) {
+export default function SignUpModal({ handleSignModal, createUserWithEmailAndPassword, auth }) {
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassward, setSignUpPassward] = useState("");
   const [checkSignUpPassward, setCheckSignUpPassward] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const reg = /^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/i;
+
+  const register = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(auth, signUpEmail, signUpPassward);
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const onChangeEmail = (e) => {
     setSignUpEmail(e.target.value);
@@ -31,6 +40,7 @@ export default function SignUpModal({ handleSignModal }) {
         setErrorMessage("");
         if (signUpPassward === checkSignUpPassward) {
           console.log("비번 동일 가입가자~!");
+          register();
           setErrorMessage("");
         } else {
           setErrorMessage("비밀번호가 동일하지 않습니다.");
@@ -41,8 +51,6 @@ export default function SignUpModal({ handleSignModal }) {
     } else {
       setErrorMessage("비밀번호를 6자 이상 입력하세요");
     }
-
-    console.log(signUpEmail, signUpPassward, checkSignUpPassward);
   };
 
   return (
@@ -161,4 +169,6 @@ const ErrorText = styled.p`
 
 SignUpModal.propTypes = {
   handleSignModal: PropTypes.func.isRequired,
+  createUserWithEmailAndPassword: PropTypes.func.isRequired,
+  auth: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]).isRequired,
 };

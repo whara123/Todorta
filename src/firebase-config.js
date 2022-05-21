@@ -1,5 +1,6 @@
-// Import the functions you need from the SDKs you need
+/* eslint-disable */
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -15,16 +16,4 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// eslint-disable-next-line no-undef
-const auth = getAuth();
-
-export const signupEmail = (email, password) => {
-  // eslint-disable-next-line no-undef
-  return createUserWithEmailAndPassword(auth, email, password);
-};
-
-export const loginEmail = (email, password) => {
-  // eslint-disable-next-line no-undef
-  return signInWithEmailAndPassword(auth, email, password);
-};
+export const auth = getAuth(app);

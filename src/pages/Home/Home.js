@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { auth } from "../../firebase-config";
 import LoginModal from "../../components/Login/LoginModal";
 
 export default function Home() {
@@ -19,7 +21,16 @@ export default function Home() {
         <MoveButton type="button" onClick={handleLogin}>
           로그인
         </MoveButton>
-        {loginModal && <LoginModal handleLogin={handleLogin} />}
+        {loginModal && (
+          <LoginModal
+            handleLogin={handleLogin}
+            createUserWithEmailAndPassword={createUserWithEmailAndPassword}
+            onAuthStateChanged={onAuthStateChanged}
+            signInWithEmailAndPassword={signInWithEmailAndPassword}
+            signOut={signOut}
+            auth={auth}
+          />
+        )}
       </HomeMain>
     </HomeBody>
   );

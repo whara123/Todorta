@@ -1,22 +1,46 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
+import PropTypes, { object } from "prop-types";
 import { useNavigate } from "react-router-dom";
-import { loginEmail, signupEmail } from "../../firebase";
 import SignUpModal from "./SignUpModal";
 
-export default function LoginModal({ handleLogin }) {
+export default function LoginModal({
+  handleLogin,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+  auth,
+}) {
   const navigation = useNavigate();
   const [idInpnut, setIdInpnut] = useState("");
   const [passWardInput, setPassWardInput] = useState("");
   const [IsRightAccount, setIsRightAccount] = useState(false);
   const [IsWrong, setIsWrong] = useState(false);
   const [IsSignUp, setIsSignUp] = useState(false);
+  const [users, setUser] = useState({});
 
   const Dimd = useRef();
   const inputFocus = useRef();
   const passFocus = useRef();
+
+  onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+  });
+
+  const login = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(auth, idInpnut, passWardInput);
+      console.log(user);
+      navigation("/calender");
+    } catch (error) {
+      console.log(error);
+      // setIsWrong(true);
+      // setIdInpnut("");
+      // setPassWardInput("");
+    }
+  };
 
   const onChangeId = (event) => {
     setIdInpnut(event.target.value);
@@ -32,16 +56,7 @@ export default function LoginModal({ handleLogin }) {
   const checkLogin = () => {
     if (idInpnut) {
       if (passWardInput) {
-        if (IsRightAccount) {
-          console.log("로그인 성공");
-          setIsWrong(false);
-          navigation("/calender");
-        } else {
-          console.log("로그인 실패");
-          setIdInpnut("");
-          setPassWardInput("");
-          setIsWrong(true);
-        }
+        login();
       } else {
         passFocus.current.focus();
       }
@@ -75,7 +90,13 @@ export default function LoginModal({ handleLogin }) {
           <button type="button">아이디/비밀번호 찾기</button>
         </SignUpFindIdWrap>
       </LoginModalWrap>
-      {IsSignUp && <SignUpModal handleSignModal={handleSignModal} />}
+      {IsSignUp && (
+        <SignUpModal
+          handleSignModal={handleSignModal}
+          createUserWithEmailAndPassword={createUserWithEmailAndPassword}
+          auth={auth}
+        />
+      )}
       <DimdScreen ref={Dimd} onClick={handleLogin}>
         딤드
       </DimdScreen>
@@ -162,4 +183,9 @@ const DimdScreen = styled.div`
 
 LoginModal.propTypes = {
   handleLogin: PropTypes.func.isRequired,
+  createUserWithEmailAndPassword: PropTypes.func.isRequired,
+  onAuthStateChanged: PropTypes.func.isRequired,
+  signInWithEmailAndPassword: PropTypes.func.isRequired,
+  signOut: PropTypes.func.isRequired,
+  auth: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]).isRequired,
 };
