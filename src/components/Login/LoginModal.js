@@ -14,7 +14,7 @@ export default function LoginModal({
   auth,
 }) {
   const navigation = useNavigate();
-  const [idInpnut, setIdInpnut] = useState("");
+  const [idInput, setIdInput] = useState("");
   const [passWardInput, setPassWardInput] = useState("");
   const [IsRightAccount, setIsRightAccount] = useState(false);
   const [IsWrong, setIsWrong] = useState(false);
@@ -31,18 +31,18 @@ export default function LoginModal({
 
   async function login() {
     try {
-      const user = await signInWithEmailAndPassword(auth, idInpnut, passWardInput);
+      const user = await signInWithEmailAndPassword(auth, idInput, passWardInput);
       console.log(user);
       navigation("/calender");
     } catch (error) {
       setIsWrong(true);
-      setIdInpnut("");
+      setIdInput("");
       setPassWardInput("");
     }
   }
 
   const onChangeId = (event) => {
-    setIdInpnut(event.target.value);
+    setIdInput(event.target.value);
   };
   const onChangePassWard = (event) => {
     setPassWardInput(event.target.value);
@@ -53,7 +53,7 @@ export default function LoginModal({
   };
 
   const checkLogin = () => {
-    if (idInpnut) {
+    if (idInput) {
       if (passWardInput) {
         login();
       } else {
@@ -69,7 +69,7 @@ export default function LoginModal({
       <LoginModalWrap>
         <LoginText>로그인 또는 회원가입</LoginText>
         <LoginInputWrap>
-          <IdPassWardInput type="text" placeholder="아이디" ref={inputFocus} onChange={onChangeId} value={idInpnut} />
+          <IdPassWardInput type="text" placeholder="아이디" ref={inputFocus} onChange={onChangeId} value={idInput} />
           <IdPassWardInput
             type="password"
             placeholder="비밀번호"
