@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import PropTypes, { object } from "prop-types";
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import SignUpModal from "./SignUpModal";
 
