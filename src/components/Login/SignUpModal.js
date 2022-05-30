@@ -15,7 +15,6 @@ export default function SignUpModal({ handleSignModal, createUserWithEmailAndPas
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(auth, signUpEmail, signUpPassward);
-      console.log(user);
       handleSignModal();
     } catch (error) {
       setErrorMessage("중복된 이메일입니다.");
@@ -37,10 +36,8 @@ export default function SignUpModal({ handleSignModal, createUserWithEmailAndPas
   const handleSignUp = () => {
     if (signUpPassward.length >= 6) {
       if (signUpEmail.match(reg) !== null) {
-        console.log("이메일 통과");
         setErrorMessage("");
         if (signUpPassward === checkSignUpPassward) {
-          console.log("비번 동일 가입가자~!");
           register();
           setErrorMessage("");
         } else {
