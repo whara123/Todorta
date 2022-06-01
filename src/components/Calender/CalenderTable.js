@@ -199,6 +199,7 @@ const CalenderTd = styled.td`
   color: ${(props) => (props.index === 0 ? "#DB4A4B" : props.index === 6 ? "#676EDB" : "#000")};
   span {
     width: 18px;
+    text-align: center;
   }
   .toDay {
     position: relative;

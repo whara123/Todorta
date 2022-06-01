@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
@@ -45,9 +45,14 @@ export default function TodoCalender() {
 
   const DayofTheWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
+  const calenderContainerBackGround = useRef();
+  const handleBackGroundColor = (color) => {
+    calenderContainerBackGround.current.style.backgroundColor = color;
+  };
+
   return (
     <>
-      <CalenderContainer>
+      <CalenderContainer ref={calenderContainerBackGround}>
         <CalenderContorol
           year={today.format("YYYY")}
           month={today.format("M월")}
@@ -71,7 +76,7 @@ export default function TodoCalender() {
           <BsPinMapFill />
         </MoveLandPageButton>
       )}
-      <CalenderBackGround />
+      <CalenderBackGround handleBackGroundColor={handleBackGroundColor} />
     </>
   );
 }
@@ -79,10 +84,10 @@ export default function TodoCalender() {
 const CalenderContainer = styled.div`
   position: absolute;
   width: 100%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  height: 100%;
+  padding: 20px;
   user-select: none;
+  background-color: #fff;
 `;
 
 const MoveLandPageButton = styled.button`

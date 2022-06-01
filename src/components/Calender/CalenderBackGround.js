@@ -1,9 +1,10 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import { AiOutlineUp } from "react-icons/ai";
 import { BsCalendar2CheckFill } from "react-icons/bs";
 
-export default function CalenderBackGround() {
+export default function CalenderBackGround({ handleBackGroundColor }) {
   const [menuOn, setMenuOn] = useState(false);
   const MenuBtn = useRef();
   const Dimd = useRef();
@@ -21,21 +22,22 @@ export default function CalenderBackGround() {
     setMenuOn(!menuOn);
     backGroundMenuOn();
   };
+
+  const backGroundColor = ["#FBDAFA", "#BCD6FA", "#FAF8CF"];
+  const changeBack = (e) => {
+    handleBackGroundColor(e.target.id);
+  };
   return (
     <CalenderBackground>
       <BackGroundMenu type="button" onClick={MeunOnOff}>
         <AiOutlineUp />
       </BackGroundMenu>
       <BackGroundMenuList ref={MenuBtn}>
-        <BackGroundMenuItem>
-          <BsCalendar2CheckFill /> 1
-        </BackGroundMenuItem>
-        <BackGroundMenuItem>
-          <BsCalendar2CheckFill /> 1
-        </BackGroundMenuItem>
-        <BackGroundMenuItem>
-          <BsCalendar2CheckFill /> 1
-        </BackGroundMenuItem>
+        {backGroundColor.map((color) => (
+          <BackGroundMenuItem id={color} onClick={changeBack}>
+            <BsCalendar2CheckFill /> 1
+          </BackGroundMenuItem>
+        ))}
       </BackGroundMenuList>
       <DimdScreen ref={Dimd} onClick={MeunOnOff}>
         딤드
@@ -93,7 +95,7 @@ const BackGroundMenuItem = styled.li`
   width: 128px;
   height: 80px;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: ${(props) => props.id};
   margin: 20px 0 20px;
 `;
 
@@ -105,5 +107,10 @@ const DimdScreen = styled.div`
   width: 100%;
   height: 100%;
   z-index: 50;
+  font-size: 0;
   background: rgba(0, 0, 0, 0.2);
 `;
+
+CalenderBackGround.propTypes = {
+  handleBackGroundColor: PropTypes.func.isRequired,
+};
