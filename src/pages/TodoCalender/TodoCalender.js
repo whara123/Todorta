@@ -69,14 +69,14 @@ export default function TodoCalender() {
           handleNextMonth={handleNextMonth}
           handlePoint={handlePoint}
         />
-        <Point todoPoint={todoPoint} />
+        {isReady && <Point todoPoint={todoPoint} />}
       </CalenderContainer>
       {isReady && (
         <MoveLandPageButton type="button" onClick={handleMove}>
           <BsPinMapFill />
         </MoveLandPageButton>
       )}
-      <CalenderBackGround handleBackGroundColor={handleBackGroundColor} />
+      {isReady && <CalenderBackGround handleBackGroundColor={handleBackGroundColor} />}
     </>
   );
 }

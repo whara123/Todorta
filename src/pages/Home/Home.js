@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../firebase-config";
 import LoginModal from "../../components/Login/LoginModal";
 
 export default function Home() {
   const [loginModal, setLoginModal] = useState();
+  const navigation = useNavigate();
 
   const handleLogin = () => {
     setLoginModal(!loginModal);
+  };
+
+  const onClickStart = () => {
+    navigation("/calender");
   };
 
   return (
@@ -18,8 +24,8 @@ export default function Home() {
         <p>당신의 진짜 ToDoList</p>
       </HomeHead>
       <HomeMain>
-        <MoveButton type="button" onClick={handleLogin}>
-          로그인
+        <MoveButton type="button" onClick={onClickStart}>
+          시작하기
         </MoveButton>
         {loginModal && (
           <LoginModal
