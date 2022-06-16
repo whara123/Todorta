@@ -19,8 +19,8 @@ function App() {
       <TransitionGroup>
         <CSSTransition key={location.key} classNames="fade" timeout={300} mountOnEnter unmountOnExit>
           <Routes location={location}>
-            <Route path="/" element={<Home />} />
-            <Route path="/calender" element={<TodoCalender />} />
+            {/* <Route path="/" element={<Home />} /> */}
+            <Route path="/" element={<TodoCalender />} />
             <Route path="/todoLand" element={<TodoLand />} />
           </Routes>
         </CSSTransition>
